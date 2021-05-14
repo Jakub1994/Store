@@ -1,5 +1,5 @@
-from django.db import models
 from django.contrib.auth.models import User
+from django.db import models
 from django.urls import reverse
 
 
@@ -14,7 +14,7 @@ class Category(models.Model):
         return reverse('store:category_list', args=[self.slug])
 
     def __str__(self):
-            return self.name
+        return self.name
 
 
 class Product(models.Model):
@@ -30,7 +30,6 @@ class Product(models.Model):
     is_active = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-
 
     class Meta:
         verbose_name_plural = 'Products'

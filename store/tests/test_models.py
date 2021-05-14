@@ -1,5 +1,5 @@
-from django.test import TestCase
 from django.contrib.auth.models import User
+from django.test import TestCase
 
 from store.models import Category, Product
 
@@ -14,7 +14,7 @@ class TestCategoriesModel(TestCase):
         Test Category model data insertion/types/field attributes
         """
         data = self.data1
-        self.assertTrue(isinstance(data,Category))
+        self.assertTrue(isinstance(data, Category))
 
     def test_category_model_entry(self):
         """
@@ -28,7 +28,8 @@ class TestProductsModel(TestCase):
     def setUp(self):
         Category.objects.create(name='django', slug='django')
         User.objects.create(username='admin')
-        self.data1 = Product.objects.create(category_id=1, title='Cactus fruit', created_by_id=1,               slug='cactus-fruit', price='13.40' image='cactus_fruit')
+        self.data1 = Product.objects.create(category_id=1, title='Cactus fruit', created_by_id=1,
+                        slug='cactus-fruit', price='13.40', image=' cactus_fruit.jpg')
 
     def test_products_model_entry(self):
         """
