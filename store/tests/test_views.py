@@ -1,8 +1,10 @@
+from importlib import import_module
 from unittest import skip
 
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.http import HttpRequest
-from django.test import Client, RequestFactory, TestCase
+from django.test import Client, TestCase
 from django.urls import reverse
 
 from store.models import Category, Product
@@ -18,11 +20,10 @@ class TestSkip(TestCase):
 class TestViewResponses(TestCase):
     def setUp(self):
         self.c = Client()
-        self.factory = RequestFactory()
         User.objects.create(username='admin')
         Category.objects.create(name='Fruits', slug='fruits')
         Product.objects.create(category_id=1, title='Cactus fruit', created_by_id=1,
-                               slug='cactus-fruit', price='13.40', image=' cactus_fruit.jpg')
+                               slug='cactus-fruit', price='13.40', image='cactus_fruit')
 
     def test_url_allowed_hosts(self):
         """
@@ -61,6 +62,7 @@ class TestViewResponses(TestCase):
         Example: code validation, search HTML for text
         """
         request = HttpRequest()
+        engine = import_module(settings.SESSION_ENGINE)
         response = product_all(request)
         html = response.content.decode('utf8')
         self.assertIn('<title>Home</title>', html)
