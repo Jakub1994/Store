@@ -8,13 +8,13 @@ from store.models import Category, Product
 class TestBasketView(TestCase):
     def setUp(self):
         User.objects.create(username='admin')
-        Category.objects.create(name='django', slug='django')
-        Product.objects.create(category_id=1, title='django beginners', created_by_id=1,
-                               slug='django-beginners', price='20.00', image='django')
-        Product.objects.create(category_id=1, title='django intermediate', created_by_id=1,
-                               slug='django-beginners', price='20.00', image='django')
-        Product.objects.create(category_id=1, title='django advanced', created_by_id=1,
-                               slug='django-beginners', price='20.00', image='django')
+        Category.objects.create(name='Fruits', slug='fruits')
+        Product.objects.create(category_id=1, title='Cactus fruit', created_by_id=1,
+                               slug='cactus-fruit', price='13.40', image='cactus_fruit')
+        Product.objects.create(category_id=1, title='Cactus fruit', created_by_id=1,
+                               slug='cactus-fruit', price='13.40', image='cactus_fruit')
+        Product.objects.create(category_id=1, title='Cactus fruit', created_by_id=1,
+                               slug='cactus-fruit', price='13.40', image='cactus_fruit')
         self.client.post(
             reverse('basket:basket_add'), {"productid": 1, "productqty": 1, "action": "post"}, xhr=True)
         self.client.post(
@@ -44,7 +44,7 @@ class TestBasketView(TestCase):
         """
         response = self.client.post(
             reverse('basket:basket_delete'), {"productid": 2, "action": "post"}, xhr=True)
-        self.assertEqual(response.json(), {'qty': 1, 'subtotal': '20.00'})
+        self.assertEqual(response.json(), {'qty': 1, 'subtotal': '13.40'})
 
     def test_basket_update(self):
         """
@@ -52,4 +52,4 @@ class TestBasketView(TestCase):
         """
         response = self.client.post(
             reverse('basket:basket_update'), {"productid": 2, "productqty": 1, "action": "post"}, xhr=True)
-        self.assertEqual(response.json(), {'qty': 2, 'subtotal': '40.00'})
+        self.assertEqual(response.json(), {'qty': 2, 'subtotal': '26.80'})
