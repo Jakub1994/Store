@@ -1,7 +1,7 @@
 //'use strict';
 
 
-var stripe = Stripe('pk_live_51IliFGD4Ujytsrtrt8PljEHjhiShEsdWjeOuddMih50TE0RjwpFt82NW1ZL7Ul0t5bZatfz1759FQykBC5UKv9Ae00HCQmyqxE');
+var stripe = Stripe('pk_test_51IliFGD4UjytsrtrXDzIS8a3UCQFdlCLfw8ZseRfOO8JcxovPa8jF21qxuY8C2FPM5o2dmBi0x3e5QMbiIVTihIc00PohrAY5U');
 
 var elem = document.getElementById('submit');
 clientsecret = elem.getAttribute('data-secret');
@@ -9,10 +9,10 @@ clientsecret = elem.getAttribute('data-secret');
 // Set up Stripe.js and Elements to use in checkout form
 var elements = stripe.elements();
 var style = {
-base: {
-  color: "#000",
-  lineHeight: '2.4',
-  fontSize: '16px'
+  base: {
+    color: "#000",
+    lineHeight: '2.4',
+    fontSize: '16px'
 }
 };
 
@@ -34,56 +34,34 @@ if (event.error) {
 var form = document.getElementById('payment-form');
 
 form.addEventListener('submit', function(ev) {
-ev.preventDefault();
+  ev.preventDefault();
 
 var custName = document.getElementById("custName").value;
 var custAdd = document.getElementById("custAdd").value;
 var custAdd2 = document.getElementById("custAdd2").value;
 var postCode = document.getElementById("postCode").value;
 
+  stripe.confirmCardPayment(clientsecret, {
+    payment_method: {
+      card: card,
+      billing_details: {
+        address:{
+          line1:custAdd,
+          line2:custAdd2
+        },
+        name: custName
+      },
+    }
 
-  $.ajax({
-    type: "POST",
-    url: 'http://127.0.0.1:8000/orders/add/',
-    data: {
-      order_key: clientsecret,
-      csrfmiddlewaretoken: CSRF_TOKEN,
-      action: "post",
-    },
-    success: function (json) {
-      console.log(json.success)
-
-      stripe.confirmCardPayment(clientsecret, {
-        payment_method: {
-          card: card,
-          billing_details: {
-            address:{
-                line1:custAdd,
-                line2:custAdd2
-            },
-            name: custName
-          },
-        }
-      }).then(function(result) {
-        if (result.error) {
-          console.log('payment error')
-          console.log(result.error.message);
-        } else {
-          if (result.paymentIntent.status === 'succeeded') {
-            console.log('payment processed')
-            // There's a risk of the customer closing the window before callback
-            // execution. Set up a webhook or plugin to listen for the
-            // payment_intent.succeeded event that handles any business critical
-            // post-payment actions.
-            window.location.replace("http://127.0.0.1:8000/payment/orderplaced/");
-          }
-        }
-      });
-
-    },
-    error: function (xhr, errmsg, err) {},
-  });
-
-
-
+  })
+}).then(function(result) {
+  if (result.error) {
+    console.log('payment error')
+    console.log(result.error.message);
+  } else {
+    if (result.paymentIntent.status === 'succeeded') {
+      console.log('payment processed')
+      window.location.replace("https://8000-coffee-earthworm-aqdalkin.ws-eu04.gitpod.io/payment/orderplaced/");
+    }
+  }
 });
