@@ -6,6 +6,7 @@ from django.http.response import HttpResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic.base import TemplateView
+from decouple import config
 
 
 from basket.basket import Basket
@@ -30,7 +31,7 @@ def BasketView(request):
     total = total.replace('.', '')
     total = int(total)
 
-    stripe.api_key = ('sk_test_51IliFGD4UjytsrtrdxGGSmfLFzYMTW8lNErGf5nZh3s8gi2CTFKr9JZWSj4IMpPYvlAliqjwMPoSFqWC6TwR0sNo00Lpjg65Jb')
+    stripe.api_key = config('SECRET_KEY2')
     intent = stripe.PaymentIntent.create(
         amount=total,
         currency='gbp',

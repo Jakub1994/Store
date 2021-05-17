@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 import os
 from pathlib import Path
-
+from decouple import config
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -21,10 +21,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-o%+=s5wmg#u=n=y^%hi+ms&25+ygqmk6$2#$ivk!uulae4ho-x'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', cast=bool, default=True)
 
 ALLOWED_HOSTS = ['yourdomain.com', '127.0.0.1', 'localhost']
 
@@ -152,7 +152,4 @@ BASKET_SESSION_ID = 'basket'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Stripe Payment
-PUBLISHABLE_KEY = 'pk_test_51IliFGD4UjytsrtrXDzIS8a3UCQFdlCLfw8ZseRfOO8JcxovPa8jF21qxuY8C2FPM5o2dmBi0x3e5QMbiIVTihIc00PohrAY5U'
-SECRET_KEY = 'sk_test_51IliFGD4UjytsrtrdxGGSmfLFzYMTW8lNErGf5nZh3s8gi2CTFKr9JZWSj4IMpPYvlAliqjwMPoSFqWC6TwR0sNo00Lpjg65Jb'
-STRIPE_ENDPOINT_SECRET = 'whsec_keSB26GfIEz2KOyZcOE8S65Jrn44Rmaj'
 # stripe listen --forward-to localhost:8000/payment/webhook/
