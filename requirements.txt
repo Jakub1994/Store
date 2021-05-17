@@ -1,5 +1,6 @@
 asgiref==3.3.4
 coverage==5.5
+decouple==0.0.7
 Django==3.2.3
 django-countries==7.2.1
 heroku==0.1.4
