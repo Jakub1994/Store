@@ -16,4 +16,5 @@ pytz==2021.1
 sqlparse==0.4.1
 stripe==2.56.0
 testfixtures==6.17.1
+unicorn==1.0.2
 whitenoise==5.2.0
