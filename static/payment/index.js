@@ -9,10 +9,10 @@ clientsecret = elem.getAttribute('data-secret');
 // Set up Stripe.js and Elements to use in checkout form
 var elements = stripe.elements();
 var style = {
-  base: {
-    color: "#000",
-    lineHeight: '2.4',
-    fontSize: '16px'
+base: {
+  color: "#000",
+  lineHeight: '2.4',
+  fontSize: '16px'
 }
 };
 
@@ -34,34 +34,53 @@ if (event.error) {
 var form = document.getElementById('payment-form');
 
 form.addEventListener('submit', function(ev) {
-  ev.preventDefault();
+ev.preventDefault();
 
 var custName = document.getElementById("custName").value;
 var custAdd = document.getElementById("custAdd").value;
 var custAdd2 = document.getElementById("custAdd2").value;
 var postCode = document.getElementById("postCode").value;
 
-  stripe.confirmCardPayment(clientsecret, {
-    payment_method: {
-      card: card,
-      billing_details: {
-        address:{
-          line1:custAdd,
-          line2:custAdd2
-        },
-        name: custName
-      },
-    }
 
-  })
-}).then(function(result) {
-  if (result.error) {
-    console.log('payment error')
-    console.log(result.error.message);
-  } else {
-    if (result.paymentIntent.status === 'succeeded') {
-      console.log('payment processed')
-      window.location.replace("https://8000-coffee-earthworm-aqdalkin.ws-eu04.gitpod.io/payment/orderplaced/");
-    }
-  }
+  $.ajax({
+    type: "POST",
+    url: 'https://8000-bronze-pig-83cwv2z7.ws-eu04.gitpod.io/orders/add/',
+    data: {
+      order_key: clientsecret,
+      csrfmiddlewaretoken: CSRF_TOKEN,
+      action: "post",
+    },
+    success: function (json) {
+      console.log(json.success)
+
+      stripe.confirmCardPayment(clientsecret, {
+        payment_method: {
+          card: card,
+          billing_details: {
+            address:{
+                line1:custAdd,
+                line2:custAdd2
+            },
+            name: custName
+          },
+        }
+      }).then(function(result) {
+        if (result.error) {
+          console.log('payment error')
+          console.log(result.error.message);
+        } else {
+          if (result.paymentIntent.status === 'succeeded') {
+            console.log('payment processed')
+
+            window.location.replace("https://8000-bronze-pig-83cwv2z7.ws-eu04.gitpod.io/payment/orderplaced/");
+          }
+        }
+      });
+
+    },
+    error: function (xhr, errmsg, err) {},
+  });
+
+
+
 });
