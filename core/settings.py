@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-o%+=s5wmg#u=n=y^%hi+ms&25+ygqmk6$2#$ivk!uulae4ho-x
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['yourdomain.com', '127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -145,9 +145,14 @@ AUTH_USER_MODEL = 'account.UserBase'
 LOGIN_REDIRECT_URL = '/account/dashboard'
 LOGIN_URL = '/account/login/'
 
+# basket session ID
+BASKET_SESSION_ID = 'basket'
+
 # Email setting
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-# Stripe key
-Api_key = os.getenv('STRIPE_Api_key', '')
-Secret_key = os.getenv('STRIPE_Secret_key', '')
+# Stripe Payment
+PUBLISHABLE_KEY = 'pk_test_51IliFGD4UjytsrtrXDzIS8a3UCQFdlCLfw8ZseRfOO8JcxovPa8jF21qxuY8C2FPM5o2dmBi0x3e5QMbiIVTihIc00PohrAY5U'
+SECRET_KEY = 'sk_test_51IliFGD4UjytsrtrdxGGSmfLFzYMTW8lNErGf5nZh3s8gi2CTFKr9JZWSj4IMpPYvlAliqjwMPoSFqWC6TwR0sNo00Lpjg65Jb'
+STRIPE_ENDPOINT_SECRET = 'whsec_keSB26GfIEz2KOyZcOE8S65Jrn44Rmaj'
+# stripe listen --forward-to localhost:8000/payment/webhook/
