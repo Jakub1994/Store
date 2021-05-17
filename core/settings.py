@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'account',
     'payment',
     'orders',
-    
 ]
 
 MIDDLEWARE = [
@@ -147,3 +146,7 @@ LOGIN_URL = '/account/login/'
 
 # Email setting
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Stripe key
+Api_key = os.getenv('STRIPE_Api_key', '')
+Secret_key = os.getenv('STRIPE_Secret_key', '')
