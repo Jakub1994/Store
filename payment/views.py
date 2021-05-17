@@ -6,7 +6,7 @@ from django.http.response import HttpResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic.base import TemplateView
-from decouple import config
+
 
 
 from basket.basket import Basket
