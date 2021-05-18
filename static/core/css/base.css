@@ -10,6 +10,10 @@
         padding:0 24px;
     }
 }
+
+body{
+    background-color: rgb(198, 241, 208);
+}
 .dropdown-toggle::after {
     display: none;
 }
@@ -21,6 +25,14 @@
 
 .alert-primary{
     background-color: #E4F1FF;
+}
+
+.img-custom{
+    max-height: 100px;
+}
+.m-auto{
+    margin: auto;
+    padding: auto;
 }
 
 
@@ -76,3 +88,4 @@ html, body, p, div{
 .footer > div > div > ul > li{
     padding-bottom:8px;
 }
+
