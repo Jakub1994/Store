@@ -1,6 +1,5 @@
 asgiref==3.3.4
 boto3==1.17.74
-botocore==1.20.74
 coverage==5.5
 decouple==0.0.7
 dj-database-url==0.5.0
@@ -20,5 +19,4 @@ s3transfer==0.4.2
 sqlparse==0.4.1
 stripe==2.56.0
 testfixtures==6.17.1
-unicorn==1.0.2
 whitenoise==5.2.0
