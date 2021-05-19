@@ -63,9 +63,12 @@ class Basket():
             self.basket[product_id]['qty'] = qty
         self.save()
 
+    def get_subtotal_price(self):
+        return sum(Decimal(item['price']) * item['qty'] for item in self.basket.values())
+
     def get_total_price(self):
-        
-        subtotal = sum(Decimal(item['price']) * item['qty'] for item in self.basket.values)
+
+        subtotal = sum(Decimal(item['price']) * item['qty'] for item in self.basket.values())
 
         if subtotal == 0:
             shipping = Decimal(0.00)
@@ -83,12 +86,12 @@ class Basket():
 
         if product_id in self.basket:
             del self.basket[product_id]
-            print(product_id)
             self.save()
+
+    def clear(self):
+        # Remove basket from session
+        del self.session[settings.BASKET_SESSION_ID]
+        self.save()
 
     def save(self):
         self.session.modified = True
-
-    def clear(self):
-        del self.session[settings.BASKET_SESSION_ID]
-        self.save()
