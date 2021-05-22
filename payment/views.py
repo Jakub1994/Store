@@ -26,21 +26,21 @@ class Error(TemplateView):
 
 @login_required
 def BasketView(request):
+    stripe_public_key = settings.STRIPE_PUBLISHABLE_KEY
+    stripe_secret_key = settings.STRIPE_SECRET_KEY
 
     basket = Basket(request)
     total = str(basket.get_total_price())
     total = total.replace('.', '')
     total = int(total)
 
-    stripe.api_key = settings.STRIPE_SECRET_KEY
+    stripe.api_key = 'sk_test_51IliFGD4UjytsrtrdxGGSmfLFzYMTW8lNErGf5nZh3s8gi2CTFKr9JZWSj4IMpPYvlAliqjwMPoSFqWC6TwR0sNo00Lpjg65Jb'
     intent = stripe.PaymentIntent.create(
         amount=total,
         currency='gbp',
         metadata={'userid': request.user.id}
     )
-
-    return render(request, 'payment/payment_form.html', {'client_secret': intent.client_secret, 
-                                                            'STRIPE_PUBLISHABLE_KEY': os.environ.get('STRIPE_PUBLISHABLE_KEY')})
+    return render(request, 'payment/payment_form.html', {'client_secret': intent.client_secret})
 
 
 @csrf_exempt
