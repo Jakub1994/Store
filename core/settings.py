@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = 'True'
+DEBUG = 'False'
 
 ALLOWED_HOSTS = ['*']
 
@@ -57,7 +57,11 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+SECURE_SSL_REDIRECT = os.environ.get('SECURE_SSL_REDIRECT')
+
 ROOT_URLCONF = 'core.urls'
+
+CSRF_COOKIE_SECURE = os.environ.get('CSRF_COOKIE_SECURE')
 
 TEMPLATES = [
     {
