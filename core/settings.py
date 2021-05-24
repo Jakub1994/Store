@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 from pathlib import Path
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -57,11 +56,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-SECURE_SSL_REDIRECT = os.environ.get('SECURE_SSL_REDIRECT')
 
 ROOT_URLCONF = 'core.urls'
 
-CSRF_COOKIE_SECURE = os.environ.get('CSRF_COOKIE_SECURE')
 
 TEMPLATES = [
     {
