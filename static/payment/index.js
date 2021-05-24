@@ -1,7 +1,7 @@
 //'use strict';
 
 
-var stripe = Stripe('STRIPE_PUBLISHABLE_KEY');
+var stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
 
 var elem = document.getElementById('submit');
 clientsecret = elem.getAttribute('data-secret');
@@ -44,7 +44,7 @@ var postCode = document.getElementById("postCode").value;
 
   $.ajax({
     type: "POST",
-    url: 'https://8000-bronze-pig-83cwv2z7.ws-eu04.gitpod.io/orders/add/',
+    url: 'https://8000-cyan-turkey-qm3f0u0d.ws-eu07.gitpod.io/orders/add/',
     data: {
       order_key: clientsecret,
       csrfmiddlewaretoken: CSRF_TOKEN,
@@ -72,7 +72,7 @@ var postCode = document.getElementById("postCode").value;
           if (result.paymentIntent.status === 'succeeded') {
             console.log('payment processed')
 
-            window.location.replace("https://8000-bronze-pig-83cwv2z7.ws-eu04.gitpod.io/payment/orderplaced/");
+            window.location.replace("https://8000-cyan-turkey-qm3f0u0d.ws-eu07.gitpod.io/payment/orderplaced/");
           }
         }
       });
