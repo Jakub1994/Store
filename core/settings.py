@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'account',
     'payment',
     'orders',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -159,3 +160,9 @@ STRIPE_PUBLISHABLE_KEY = os.getenv('STRIPE_PUBLISHABLE_KEY', '')
 
 STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', '')
 # stripe listen --forward-to localhost:8000/payment/webhook/
+
+# AMW Storages
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID', '')
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY', '')
+AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME', '')
